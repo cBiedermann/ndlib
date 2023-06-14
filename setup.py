@@ -13,11 +13,11 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-setup(name='ndlib',
-      version='5.1.1',
+setup(name='ndlibc',
+      version='0.1.1',
       license='BSD-Clause-2',
       description='Network Diffusion Library',
-      url='https://github.com/GiulioRossetti/ndlib',
+      url='https://github.com/cBiedermann/ndlib',
       author='Giulio Rossetti',
       author_email='giulio.rossetti@gmail.com',
       use_2to3=True,
