@@ -17,10 +17,10 @@ setup(name='ndlib',
       version='0.1.1',
       license='BSD-Clause-2',
       description='Network Diffusion Library',
-      url='https://github.com/cBiedermann/ndlib',
+      url='https://github.com/cBiedermann/ndlibc',
       author='Giulio Rossetti',
       author_email='giulio.rossetti@gmail.com',
-      use_2to3=True,
+      use_2to3=False,
       entry_points={
           'console_scripts': [
               'NDQL_translate = scripts.NDQL_translate:translate',
