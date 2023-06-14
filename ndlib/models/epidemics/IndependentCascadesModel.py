@@ -49,6 +49,8 @@ class IndependentCascadesModel(DiffusionModel):
             node: nstatus for node, nstatus in future.utils.iteritems(self.status)
         }
 
+        active_edges = []
+
         if self.actual_iteration == 0:
             self.actual_iteration += 1
             delta, node_count, status_delta = self.status_delta(actual_status)
@@ -58,6 +60,7 @@ class IndependentCascadesModel(DiffusionModel):
                     "status": actual_status.copy(),
                     "node_count": node_count.copy(),
                     "status_delta": status_delta.copy(),
+                    "active_edges": active_edges,
                 }
             else:
                 return {
@@ -65,6 +68,7 @@ class IndependentCascadesModel(DiffusionModel):
                     "status": {},
                     "node_count": node_count.copy(),
                     "status_delta": status_delta.copy(),
+                    "active_edges": active_edges,
                 }
 
         for u in self.graph.nodes:
@@ -95,6 +99,7 @@ class IndependentCascadesModel(DiffusionModel):
                         flip = np.random.random_sample()
                         if flip <= threshold:
                             actual_status[v] = 1
+                            active_edges.append(key)
 
             actual_status[u] = 2
 
@@ -108,6 +113,7 @@ class IndependentCascadesModel(DiffusionModel):
                 "status": delta.copy(),
                 "node_count": node_count.copy(),
                 "status_delta": status_delta.copy(),
+                "active_edges": active_edges,
             }
         else:
             return {
@@ -115,4 +121,5 @@ class IndependentCascadesModel(DiffusionModel):
                 "status": {},
                 "node_count": node_count.copy(),
                 "status_delta": status_delta.copy(),
+                "active_edges": active_edges,
             }
