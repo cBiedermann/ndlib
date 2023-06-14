@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-setup(name='ndlibc',
+setup(name='ndlib',
       version='0.1.1',
       license='BSD-Clause-2',
       description='Network Diffusion Library',
