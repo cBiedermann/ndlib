@@ -1,3 +1,5 @@
+import networkx as nx
+
 from ..DiffusionModel import DiffusionModel
 import numpy as np
 import future.utils
@@ -23,6 +25,12 @@ class IndependentCascadesModel(DiffusionModel):
         super(self.__class__, self).__init__(graph, seed)
         self.available_statuses = {"Susceptible": 0, "Infected": 1, "Removed": 2}
 
+        self.my_graph = graph
+
+        temp = dict(zip(self.my_graph.edges, np.random.random_sample(len(self.my_graph.edges))))
+
+        nx.set_edge_attributes(self.my_graph, temp, 'weight')
+
         self.parameters = {
             "model": {},
             "nodes": {},
@@ -31,7 +39,7 @@ class IndependentCascadesModel(DiffusionModel):
                     "descr": "Edge threshold",
                     "range": [0, 1],
                     "optional": True,
-                    "default": 0.1,
+                    "default": 0.35,
                 }
             },
         }
@@ -81,7 +89,8 @@ class IndependentCascadesModel(DiffusionModel):
 
             # Standard threshold
             if len(neighbors) > 0:
-                threshold = 1.0 / len(neighbors)
+                # 1/ len(neighbors)
+                threshold = 0.35
 
                 for v in neighbors:
                     if actual_status[v] == 0:
@@ -96,8 +105,8 @@ class IndependentCascadesModel(DiffusionModel):
                             ] and not self.graph.directed:
                                 threshold = self.params["edges"]["threshold"][(v, u)]
 
-                        flip = np.random.random_sample()
-                        if flip <= threshold:
+                        print(self.my_graph.edges[key]['weight'])
+                        if 0.9 <= self.my_graph.edges[key]['weight']:
                             actual_status[v] = 1
                             active_edges.append(key)
 
