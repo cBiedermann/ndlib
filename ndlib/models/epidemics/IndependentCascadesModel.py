@@ -105,7 +105,6 @@ class IndependentCascadesModel(DiffusionModel):
                             ] and not self.graph.directed:
                                 threshold = self.params["edges"]["threshold"][(v, u)]
 
-                        print(self.my_graph.edges[key]['weight'])
                         if 0.9 <= self.my_graph.edges[key]['weight']:
                             actual_status[v] = 1
                             active_edges.append(key)
